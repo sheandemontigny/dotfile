@@ -1,0 +1,30 @@
+Config { font    = "xft:Source Code Pro:weight=bold:pixelsize=16:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:mononoki Nerd Font Mono:pixelsize=16:antialias=true:hinting=true"
+                           ]
+       , bgColor = "#181a20"
+       , fgColor = "#eeffff"
+       , position = Static { xpos = 16 , ypos = 8 , width = 3640 , height = 34 }
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , commands = [
+                      Run Date "%Y-%m-%d  %H:%M:%S " "date" 100
+                    , Run Cpu ["-t", "cpu: <total>%","-H","50","--high","red"] 20
+                    , Run Memory ["-t", "mem: <usedratio>%"] 20
+                    , Run DiskU [("/", "ssd: <free> free")] [] 60
+                    , Run StdinReader
+                    , Run Kbd [ ("us", "US"), ("ca(multi)", "CA") ]
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "  \
+                       \%StdinReader%\
+                       \}{\
+                       \<fc=#666666> | </fc><fc=#98be65> %cpu% </fc>\
+                       \<fc=#666666> | </fc><fc=#ff6c6b> %memory% </fc>\
+                       \<fc=#666666> | </fc><fc=#46d9ff> %date% </fc>\
+                       \<fc=#666666> | </fc><fc=#b3afc2> %kbd% </fc>\
+                       \  "
+       }
+

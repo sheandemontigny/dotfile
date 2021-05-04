@@ -1,0 +1,18 @@
+Config { font    = "xft:Source Code Pro:weight=bold:pixelsize=16:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:mononoki Nerd Font Mono:pixelsize=16:antialias=true:hinting=true"
+                           ]
+       , bgColor = "#181a20"
+       , fgColor = "#eeffff"
+       , position = Static { xpos = 3856 , ypos = 8, width = 2848, height = 34 }
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , commands = [ Run StdinReader ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "  \
+                       \%StdinReader%\
+                       \  "
+       }
+
