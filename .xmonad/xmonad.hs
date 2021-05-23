@@ -12,6 +12,7 @@ import           XMonad.Layout.Gaps
 import           XMonad.Layout.IndependentScreens
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Spacing
+import           XMonad.Layout.ResizableTile
 import           XMonad.Prompt.ConfirmPrompt
 import qualified XMonad.StackSet               as W
 import           XMonad.Util.Dmenu
@@ -43,13 +44,16 @@ myStartupHook = do
   spawnOnce "teams &"
   spawnOnce "stalonetray &"
   spawnOnce "nm-applet &"
+  spawnOnce "spotifyd &"
+  spawnOnce "noisetorch -i"
 
 -- Layout
 windowGaps i = spacingRaw False (Border i 0 i 0) True (Border 0 i 0 i) True
 
 screenGaps = gaps [(L, 0), (R, 0), (U, 40), (D, 0)]
 
-myDefaultLayout = Tall 1 (3 / 100) (1 / 2) ||| Full
+resizableTall = ResizableTall 1 (3 / 100) (1 / 2) [] 
+myDefaultLayout = resizableTall ||| Mirror resizableTall |||  Full
 
 myLayoutHook = windowGaps 16 $ screenGaps $ myDefaultLayout
 
@@ -69,6 +73,8 @@ myKeys =
     , ("M-<Tab>"               , sendMessage NextLayout)
     , ("M-,"                   , nextScreen)
     , ("M-."                   , prevScreen)
+    , ("M-a", sendMessage MirrorShrink)
+    , ("M-z", sendMessage MirrorExpand)
     , ("<XF86AudioLowerVolume>", spawn "pamixer -d 2")
     , ("<XF86AudioRaiseVolume>", spawn "pamixer -i 2")
     , ("<XF86AudioMute>"       , spawn "pamixer -t")
@@ -116,6 +122,8 @@ main = do
                           , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]"
                           , ppHidden = xmobarColor "#82aaff" "" . wrap "*" ""
                           , ppHiddenNoWindows = xmobarColor "#c792ea" ""
+                          , ppOrder = \(ws:l:_:_) -> [ws,l]
+                          , ppSep = " | "
                           }
                         , handleEventHook = handleEventHook def <+> fullscreenEventHook
                         }
