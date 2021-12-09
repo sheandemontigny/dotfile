@@ -36,6 +36,7 @@ fi
 numlockx &
 
 xrandr --output DP1 --auto --scale 0.9999x0.9999 --output HDMI2 --auto --scale 1.5x1.5 --right-of DP1 --set "Broadcast RGB" "Full"
+# xrandr --output DP1 --auto --output HDMI2 --auto --right-of DP1 --set "Broadcast RGB" "Full"
 
 xsetroot -cursor_name left_ptr
 
@@ -45,6 +46,7 @@ case $session in
   dwm    ) exec dwm;;
   i3     ) exec i3;;
   xmonad ) exec xmonad;;
+  qtile  ) exec qtile start;;
   *      ) exec $1;;
 esac
 

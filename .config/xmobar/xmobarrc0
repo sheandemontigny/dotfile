@@ -1,8 +1,8 @@
 Config { font    = "xft:Source Code Pro:weight=bold:pixelsize=16:antialias=true:hinting=true"
        , additionalFonts = [ "xft:mononoki Nerd Font Mono:pixelsize=16:antialias=true:hinting=true"
                            ]
-       , bgColor = "#181a20"
-       , fgColor = "#eeffff"
+       , bgColor = "#2e3440"
+       , fgColor = "#d8dee9"
        , position = Static { xpos = 16 , ypos = 8 , width = 3640 , height = 34 }
        , lowerOnStart = True
        , hideOnStart = False
@@ -13,16 +13,18 @@ Config { font    = "xft:Source Code Pro:weight=bold:pixelsize=16:antialias=true:
                     , Run Cpu ["-t", "cpu: <total>%","-H","50","--high","red"] 20
                     , Run Memory ["-t", "mem: <usedratio>%"] 20
                     , Run DiskU [("/", "ssd: <free> free")] [] 60
-                    , Run StdinReader
+                    , Run UnsafeStdinReader
                     , Run Kbd [ ("us", "US"), ("ca(multi)", "CA") ]
+                    , Run Com "/home/shean/scripts/get-volume" [] "vol" 5
                     ]
        , sepChar = "%"
        , alignSep = "}{"
        , template = "  \
-                       \%StdinReader%\
+                       \%UnsafeStdinReader%\
                        \}{\
-                       \<fc=#666666> | </fc><fc=#98be65> %cpu% </fc>\
-                       \<fc=#666666> | </fc><fc=#ff6c6b> %memory% </fc>\
+                       \<fc=#666666> | </fc><fc=#98be65><action=`alacritty -e htop`> %cpu% </action></fc>\
+                       \<fc=#666666> | </fc><fc=#ff6c6b><action=`alacritty -e htop`> %memory% </action></fc>\
+                       \<fc=#666666> | </fc><fc=#51afef> vol:<action=`pamixer -d 2`> - </action><action=`alacritty -e pulsemixer`>%vol%</action><action=`pamixer -i 2`> + </action></fc>\
                        \<fc=#666666> | </fc><fc=#46d9ff> %date% </fc>\
                        \<fc=#666666> | </fc><fc=#b3afc2> %kbd% </fc>\
                        \  "

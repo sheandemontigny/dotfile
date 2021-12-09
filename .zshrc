@@ -38,14 +38,20 @@ alias ll="ls -la"
 alias l.="ls -d .*"
 alias startx="startx ~/.xinitrc"
 alias config="git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias ssh-root-cwh="TERM=xterm-256color ssh root@monitoring.softdb.com -p 2052"
 
 export PATH=~/.emacs.d/bin:$PATH
+export PATH=~/scripts:$PATH
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/shean/google-cloud-sdk/path.zsh.inc' ]; then . '/home/shean/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/shean/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/shean/google-cloud-sdk/completion.zsh.inc'; fi
+
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
